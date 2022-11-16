@@ -1,0 +1,9 @@
+.listElement {
+  display: flex;
+  align-items: center;
+  margin: 10px 15px;
+}
+
+.listElement > span {
+  margin-right: 30px;
+}

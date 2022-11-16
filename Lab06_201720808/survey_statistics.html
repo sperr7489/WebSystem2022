@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        table,th,td{
+            border: 1px solid black;
+        }
+    </style>
+    <title>survey statistics</title>
+</head>
+<body>
+    <h1>통계</h1>
+    <h2 >제출자</h2>
+    <div id = "submitter"></div>
+    <h2 >제출자 평균 학번</h2>
+    <div id = "avg_student_id">0</div>
+    <h2 >제출자 평균 나이</h2>
+    <div id = "avg_age">0</div>
+
+    <h2 >학과 통계</h2>
+   
+    <table >
+        <tr>
+            <th scope="col">학과</th>
+            <th scope="col">인원</th>
+        </tr>
+        <tr>
+            <td>소프트웨어학과</td>
+            <td id="swCount">0</td>
+        </tr>
+        <tr>
+            <td>미디어학과</td>
+            <td id = "mediaCount">0</td>
+        
+        </tr>
+        <tr>
+            <td>사이버보안학과</td>
+            <td id = "securityCount">0</td>
+        </tr>
+        <tr>
+            <td>산업공학과</td>
+            <td id = industryCount>0</td>
+        </tr>
+    </table>
+    <br>
+    <h2 >과목 통계</h2>
+    <table>
+        <tr>
+            <th scope="col">과목</th>
+            <th scope="col">인원</th>
+        </tr>
+        <tr>
+            <td>웹시스템설계</td>
+            <td id = "web">0</td>
+        </tr>
+        <tr>
+            <td>운영체제</td>
+            <td id = "os">0</td>
+        </tr>
+        <tr>
+            <td>인공지능</td>
+            <td id = "ai">0</td>
+        </tr>
+        <tr>
+            <td>소프트웨어공학</td>
+            <td id = "sw">0</td>
+        </tr>
+        <tr>
+            <td>데이터베이스</td>
+            <td id = "db">0</td>
+        </tr>
+    </table>
+
+    <form style="display: inline;" action="/" method="post" >
+        <input type="submit" value="새로운 설문지 응답" >
+    </form>
+</body>
+</html>
