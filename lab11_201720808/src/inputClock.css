@@ -1,0 +1,26 @@
+.clock_info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 2px solid;
+}
+/* .pannel > label {
+  margin-right: 50px;
+} */
+.pannel {
+  display: flex;
+  justify-content: space-between;
+}
+.pannel > label {
+  margin-right: 10px;
+}
+
+.buttonPlus {
+  margin-top: 10px;
+  width: 100px;
+}
+
+.infoTitle {
+  font-size: 30px;
+}

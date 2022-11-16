@@ -1,0 +1,31 @@
+.clockElement {
+  width: 200px;
+  background-color: beige;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  padding: 30px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.clockElementName {
+  font-size: 20px;
+  font-weight: 800;
+}
+.clockElementInfo {
+  border: 1px solid black;
+  padding: 5px;
+  margin-bottom: 10px;
+}
+
+.buttonGroup {
+  display: flex;
+  justify-content: center;
+}
+.clockPannel {
+  text-align: center;
+  margin-top: 20px;
+  border-bottom: 1px dotted;
+}
