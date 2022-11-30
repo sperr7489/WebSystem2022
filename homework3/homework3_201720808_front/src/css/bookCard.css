@@ -1,0 +1,18 @@
+#bookCard {
+  border: 1px solid black;
+  display: flex;
+  width: 30%;
+  flex-direction: column;
+  margin-bottom: 20px;
+  padding: 10px;
+}
+
+.cardButton {
+  color: white;
+}
+.delete {
+  background-color: red;
+}
+.specific {
+  background-color: blue;
+}

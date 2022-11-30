@@ -1,0 +1,11 @@
+#addButton {
+  display: flex;
+  flex-direction: column;
+}
+#addButton > div > label {
+  margin-right: 30px;
+}
+
+#addStudent {
+  width: 50%;
+}

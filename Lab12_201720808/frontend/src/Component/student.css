@@ -1,0 +1,31 @@
+.Card {
+  width: 300px;
+  height: 180px;
+  padding: 10px 20px;
+  background-color: rgb(124, 240, 220);
+  border-radius: 10px;
+  box-sizing: bordexr-box;
+  font-weight: bold;
+}
+.SchoolName {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* box-sizing: border-box; */
+}
+.AjouLogo {
+  width: 80px;
+  height: 30px;
+}
+.StudentInfo {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-top: 10px;
+  align-items: center;
+}
+.Photo {
+  width: 120px;
+  height: 120px;
+  margin-right: 30px;
+}
