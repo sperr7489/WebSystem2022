@@ -7,10 +7,6 @@ const resStatus = require("../config/baseResponseStatus");
 const { basicResponse, resultResponse } = require("../config/response");
 const book = require("../models/book");
 
-let randomBookId = Math.floor(Math.random() * (9999 - 1000 + 1)) + 1000;
-
-// const db = mongoose.connection;
-
 // GET /book : 라우터에 대해서 DB가 연결이 되었는지 확인하는 것.
 router.get("/", async (req, res) => {
   db.connect()
@@ -46,7 +42,7 @@ router.get("/all", async (req, res) => {
     return res.status(200).send(resultResponse(resStatus.SUCCESS, booksResult));
   } catch (error) {
     console.log(error.message);
-    return res.status(500).send(resultResponse(DB_ERROR, error.message));
+    return res.status(500).send(basicResponse(DB_ERROR));
   }
 });
 
@@ -80,6 +76,15 @@ router.post("/", async (req, res) => {
   try {
     // 1000~9999 까지의 랜덤한 숫자
     // let bookId = Math.floor(Math.random() * (9999 - 1000 + 1)) + 1000;
+    const { bookName, summary, publish, author } = req.body;
+
+    if (!bookName || !publish || !author) {
+      return res.status(400).send(basicResponse(resStatus.EMPTY_DATA));
+    }
+    if (isNaN(publish))
+      // 숫자가 아니면 true를 반환한다.
+      return res.status(400).send(basicResponse(resStatus.PUBLISH_MUST_NUM));
+
     let bookExist = true; // 존재한다고 가정
     let bookId;
     do {
@@ -87,12 +92,6 @@ router.post("/", async (req, res) => {
       bookExist = (await bookModel.find({ bookId: bookId }))[0];
       console.log("bookExist : ", bookExist);
     } while (bookExist);
-
-    console.log("빠져나온다.");
-    const { bookName, summary, publish, author } = req.body;
-    if (isNaN(publish))
-      // 숫자가 아니면 true를 반환한다.
-      return res.status(400).send("연도는 숫자만 입력되어야 합니다.");
 
     const book = new bookModel({
       bookId: bookId,
@@ -102,9 +101,9 @@ router.post("/", async (req, res) => {
       author: author,
     });
 
-    const result = await book.save();
+    await book.save();
 
-    return res.status(200).send(resultResponse(resStatus.SUCCESS, result));
+    return res.status(200).send(basicResponse(resStatus.SUCCESS_BOOK_REGISTER));
   } catch (error) {
     console.log(error);
     if (error.message.includes("duplicate")) {
@@ -125,13 +124,11 @@ router.delete("/:bookId", async (req, res) => {
   });
   try {
     const { bookId } = req.params;
-    const result = await bookModel.deleteOne({ id: bookId });
-
-    // const result = bookModel.({ bookId: bookId });
+    const result = await bookModel.deleteOne({ bookId: bookId });
     if (result.deletedCount == 0) {
       return res.status(500).send(basicResponse(resStatus.NOT_EXIST_BOOK));
     }
-    return res.status(200).send(basicResponse(resStatus.SUCCESS));
+    return res.status(200).send(basicResponse(resStatus.SUCCESS_BOOK_DELETE));
   } catch (error) {
     return res.status(500).send(basicResponse(resStatus.DELETE_ERROR));
   }

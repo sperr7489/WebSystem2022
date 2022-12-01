@@ -1,16 +1,25 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import "../css/bookInfo.css";
-
+import axios from "axios";
 export default function BookInfo() {
   let { bookId } = useParams();
 
   const [bookInfo, setBookInfo] = useState({
-    bookName: "기창이 일대기",
-    author: "감기창",
-    publish: "2022",
-    summary: "김기창의 성공신화를 그려낸 이야기",
+    bookName: "",
+    author: "",
+    publish: "",
+    summary: "",
   });
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const { data } = await axios.get(`http://localhost:3030/book/${bookId}`);
+      const { result: book } = data;
+      setBookInfo({ ...book });
+    };
+    fetchData();
+  }, []);
 
   const { bookName, author, publish, summary } = bookInfo;
 

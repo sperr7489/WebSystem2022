@@ -4,3 +4,10 @@
   align-items: center;
   background-color: azure;
 }
+#mainButton {
+  background-color: azure;
+  border: 0;
+  color: blue;
+  font-weight: 800;
+  font-size: large;
+}

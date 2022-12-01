@@ -1,0 +1,16 @@
+#mainPage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 90%;
+}
+#linkMain {
+  display: flex;
+}
+
+#linkMain button {
+  background-color: rgb(18, 63, 65);
+  color: white;
+  font-weight: 300;
+}

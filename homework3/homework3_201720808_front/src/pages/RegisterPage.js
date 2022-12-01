@@ -1,27 +1,66 @@
+import axios from "axios";
 import { useState } from "react";
+import Loading from "../components/Loading";
 import "../css/registerPage.css";
 
 export default function RegisterPage() {
+  const [loading, setLoading] = useState(false);
+
   const [inputs, setInputs] = useState({
     bookName: "",
-    bookIntro: "",
     publish: "",
+    summary: "",
     author: "",
   });
 
-  const { bookName, bookIntro, publish, author } = inputs; // 비구조화 할당을 통해 값 추출
+  const { bookName, publish, author, summary } = inputs; // 비구조화 할당을 통해 값 추출
 
   const onChange = (e) => {
     const { value, id } = e.target; // 우선 e.target 에서 id 과 value 를 추출
-    console.log("[id] : ", [id]);
     setInputs({
       ...inputs, // 기존의 input 객체를 복사한 뒤
       [id]: value, // id 키를 가진 값을 value 로 설정
     });
   };
+  const clickEvent = () => {
+    setInputs({
+      bookName: "",
+      publish: "",
+      summary: "",
+      author: "",
+    });
+  };
+
+  const registerEvent = () => {
+    setLoading(true); // api 호출 전에 true로 변경하여 로딩화면 띄우기
+
+    axios
+      .post("http://localhost:3030/book", {
+        ...inputs,
+      })
+      .then((val) => {
+        const { data } = val;
+        window.alert(data.message);
+        setInputs({
+          bookName: "",
+          publish: "",
+          author: "",
+          summary: "",
+        });
+      })
+      .catch((err) => {
+        const { message } = err;
+        const { data, status } = err.response;
+        window.alert(message + "\n" + data.message);
+      })
+      .finally(() => {
+        setLoading(false); // api 호출 완료 됐을 때 false로 변경하려 로딩화면 숨김처리
+      });
+  };
 
   return (
-    <div>
+    <div id="registerLayer">
+      {loading ? <Loading /> : null}
       <h2 className="bookDetailInfo">새로운 책 등록</h2>
       <div className="bookDetailInfo">
         <label htmlFor="bookName">
@@ -36,21 +75,19 @@ export default function RegisterPage() {
           onChange={onChange}
         />
       </div>
-
       <div className="bookDetailInfo">
-        <label htmlFor="bookIntro">
+        <label htmlFor="summary">
           <span>* </span>책 한 줄 소개
         </label>
         <input
           type="text"
           className="txt-input"
-          id="bookIntro"
+          id="summary"
           placeholder="이 책의 간단한 내용을 입력해주세요"
-          value={bookIntro}
+          value={summary}
           onChange={onChange}
         />
       </div>
-
       <div className="bookDetailInfo">
         <label htmlFor="publish">
           <span>* </span>출간 연도
@@ -64,6 +101,7 @@ export default function RegisterPage() {
           onChange={onChange}
         />
       </div>
+
       <div className="bookDetailInfo">
         <label htmlFor="author">
           <span>* </span>저자
@@ -76,6 +114,17 @@ export default function RegisterPage() {
           value={author}
           onChange={onChange}
         />
+      </div>
+      <div className="typingInfo">
+        {author}, {bookName}, {publish}
+      </div>
+      <div className="typingInfo">
+        <button onClick={clickEvent} id="initiate">
+          초기화
+        </button>
+        <button onClick={registerEvent} id="register">
+          등록
+        </button>
       </div>
     </div>
   );
